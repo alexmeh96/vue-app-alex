@@ -6,22 +6,29 @@
       <button type="submit">logout</button>
     </form>
 
+    <h3>Content:</h3>
+    <div>{{getContent}}</div>
+
   </div>
 </template>
 
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   export default {
-    computed: mapGetters(['getLoggedIn', 'getUsername']),
+    computed: mapGetters(['getLoggedIn', 'getUsername', 'getContent']),
     created() {
       if (!this.getLoggedIn) {
         this.$router.push('/login')
       }
+      else {
+        this.userContentAct()
+      }
+
     },
     methods: {
-      ...mapMutations(['logoutMut']),
+      ...mapActions(['userContentAct', 'logoutAct']),
       logoutSubmit() {
-        this.logoutMut()
+        this.logoutAct()
         this.$router.push('/login')
       }
     }
